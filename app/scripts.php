@@ -95,6 +95,7 @@ function getJsCommonFiles(){
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/jquery.easing.min.js"></script>
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/scripts.js"></script>
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/bootstrap-select.min.js"></script>
+	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/responsive.bootstrap4.min.js"></script>
     <script src="'.$_SESSION['MEDICAO_URL_LOCATION_ASSETS'].'/mail/jqBootstrapValidation.js"></script>
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_ASSETS'].'/mail/contact_me.js"></script>
 	';
@@ -112,6 +113,7 @@ function getJsDataTables(){
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/datatables/buttons.html5.min.js"></script>
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/datatables/buttons.print.min.js"></script>
 	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/buttons.bootstrap4.min.js"></script>
+	<script src="'.$_SESSION['MEDICAO_URL_LOCATION_JS'].'/datatables/dataTables.responsive.min.js"></script>
 	';
 }
 

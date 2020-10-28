@@ -22,6 +22,13 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
 
         <title><?php echo getAppName();?></title>
 
+
+
+
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
+
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -42,57 +49,38 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
         <!-- Masthead-->
         <header class="masthead text-dark text-left">
 
-        <div class="wrapper">
-
-<?php
-  
-?>
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Main content -->
-  <section class="content">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Comum Congregação:</h3>
+            <div class="container d-flex flex-column">
+                <h3>Comum Congregação:</h3>
+                <h4>Endereço:</h4>
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-              <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Telefone</th>
-                    <th>Data</th>
-                    <th>Temperatura</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-              <?php
-                echo RegistrosController::showTableRegistros();
-              ?>
-            </tbody>
+              
+            <div class="container">
+                <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
+                <button style="float: right; margin-right: 8px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo Registro</button>
+              </div>
+
+            <div class="container d-flex align-items-center flex-column responsive" style="margin-top: 60px;"> 
+            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+               <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Endereço</th>
+                            <th>Telefone</th>
+                            <th>Data</th>
+                            <th>Temperatura</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                        echo RegistrosController::showTableRegistros();
+                      ?>
+                    </tbody>  
                   
-              </table>
+                  </table>
             </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div> <!-- container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
         </header>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="cadastro">
@@ -181,7 +169,7 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
        
         <script>
            $(document).ready(function() {
-                $('#tableRegistros').DataTable({
+                $('#example').DataTable({
                     "language": {
                         "url": "language_datatable.json"
                     },

@@ -30,6 +30,8 @@
     "buttons": {
         "copy": "Copiar",
         "print": "Imprimir",
+        "pdf": "Salvar em PDF",
+        "excel": "Gerar Excel",
         "copyTitle": "Cópia bem sucedida",
         "copySuccess": {
             "1": "Uma linha copiada com sucesso",
