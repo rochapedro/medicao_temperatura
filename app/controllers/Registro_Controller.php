@@ -4,6 +4,8 @@ if (!isset($_SESSION['MEDICAO_URL_APP'])){
     session_start();
 }
 
+require_once($_SESSION['MEDICAO_URL_APP'].'session.php');
+
 if (isset($_REQUEST['funcao'])){
     require_once( $_SESSION['MEDICAO_URL_MODELS'].'Registro.php');
     $funcao = $_REQUEST['funcao'];
@@ -19,23 +21,31 @@ if (isset($_REQUEST['funcao'])){
         case 'delRegistro':
             RegistrosController::deletarRegistro($_REQUEST['id_movimento']);
             break;  
-    }
+}
 }else{
     require_once( $_SESSION['MEDICAO_URL_MODELS'].'Registro.php');
 }
 
 class RegistrosController {
-    
-    public static function showTableRegistros(){
-        $data = new Registro();
-        $data = $data->getRegistros();
+
+    public static function showTableRegistros($data_inicial, $data_final){
+
+        $id_casa = $_SESSION['id_casa'];
         
+
+        $data = new Registro();
+
+            
+            if($_SESSION['is_admin'] == 1) {
+                $data = $data->getRegistrosTotais();
+            } else {
+                $data = $data->getRegistrosByCasas($id_casa, $data_inicial, $data_final);
+            }
 
         $return = '';
         foreach ($data as $row){
             $return .= '
                 <tr linha-movimento="'.$row->id_movimento.'">
-                    <td>'.$row->id_movimento.'</td>
                     <td>'.$row->nome.'</td>
                     <td>'.$row->rua.'</td>
                     <td>'.$row->telefone.'</td>

@@ -36,13 +36,12 @@ class PessoasController {
         foreach ($data as $row){
             $return .= '
                 <tr linha-pessoa="'.$row->id_pessoa.'">
-                    <td>'.$row->id_pessoa.'</td>
-                    <td>'.$row->nome.'</td>
-                    <td>'.$row->rua.' - n°'.$row->numero.' - '.$row->bairro.' - '.$row->cidade.'</td>
-                    <td>'.$row->telefone.'</td>
-                    <td>'.$row->casa_oracao.'</td>
+                    <td max-width="20%">'.$row->nome.'</td>
+                    <td width="5%">'.$row->rua.' - n°'.$row->numero.' - '.$row->bairro.' - '.$row->cidade.'</td>
+                    <td width="5%">'.$row->telefone.'</td>
+                    <td width="5%">'.$row->casa_oracao.'</td>
                     <td width="5%">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editPessoas" 
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="false data-target="#editPessoas" 
                     data-whatever="'.$row->id_pessoa.'" 
                     data-whatevernome="'.$row->nome.'"
                     data-whatevertelefone="'.$row->telefone.'"

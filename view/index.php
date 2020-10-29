@@ -1,8 +1,24 @@
 <?php
+
+if (!isset($_SESSION['FERRAM_URL_APP'])){
+  session_start();
+}
+
   require_once('../app/scripts.php');
-  require_once('../app/controllers/Casa_Controller.php');
-  require_once('../app/controllers/Cadastro_Controller.php');
-  require_once('../app/controllers/Registro_Controller.php');
+  require_once($_SESSION['MEDICAO_URL_CONTROLLERS'].'Casa_Controller.php');
+  require_once($_SESSION['MEDICAO_URL_CONTROLLERS'].'Pessoa_Controller.php');
+  require_once($_SESSION['MEDICAO_URL_CONTROLLERS'].'Registro_Controller.php');
+  require_once ('../app/session.php');
+
+  if(isset($_REQUEST['filter'])){
+    $data_inicial = $_GET['data_inicial'];
+    $data_final = $_GET['data_final'];
+  } else {
+  
+    $data_inicial = date("Y-m-d");
+    $data_final = date("Y-m-d");
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +44,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top">Home</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="app/destroy.php">Sair</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#modalPessoas" href="">Pessoas</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../app/destroy.php">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,39 +53,78 @@
         <!-- Masthead-->
         <header class="masthead text-dark text-left">
 
-            <div class="container d-flex flex-column">
-                <h3>Comum Congregação: </h3>
-                <h4>Endereço:</h4>
+        <div class="wrapper">
+
+<?php
+  
+?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Main content -->
+  <section class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Comum Congregação: <?php echo $_SESSION['casa_oracao']; ?></h3>
             </div>
-              
+            <!-- /.card-header -->
+            <div class="card-body">
             <div class="container">
                 <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
-                <button style="float: right; margin-right: 8px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Novo Registro</button>
+                <button style="float: right; margin-right: 8px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo Registro</button>
               </div>
 
-            <div class="container d-flex align-items-center flex-column" style="margin-top: 60px;"> 
-                
-                
-   
-                <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Endereço</th>
-                            <th>Telefone</th>
-                            <th>Data</th>
-                            <th>Temperatura</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                        echo RegistrosController::showTableRegistros();
-                      ?>
-                    </tbody>  
+              <form style="margin-top: 30px;" method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="inputName">Data Inicial</label>          
+                      <input type="hidden" name="filter" value="1">      
+                      <input class="form-control" type="date"  id="data_inicial" name="data_inicial">    
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="inputName">Data Final</label>                
+                      <input class="form-control" type="date"  id="data_final" name="data_final">    
+                  </div>
+                </div>
+                <button style="padding-right: 30px; padding-left: 30px" type="submit" class="btn btn-primary">OK</button>
+              </form>
+              <a href="index.php"><button style="padding-right: 30px; padding-left: 30px" class="btn btn-secondary">Limpar</button></a>
+              <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+              <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Data</th>
+                    <th>Temperatura</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              <?php
+                echo RegistrosController::showTableRegistros($data_inicial, $data_final);
+              ?>
+            </tbody>
                   
-                  </table>
+              </table>
             </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div> <!-- container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
         </header>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="cadastro">
@@ -77,112 +133,67 @@
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Cadastro</h2>
                 <!-- Icon Divider-->
                
-            <form style="margin-top: 30px;" method="POST" id="cadastrar" action="<?php echo $_SESSION['MEDICAO_URL_LOCATION_CONTROLLERS'].'/'.'Cadastro_Controller.php?funcao=cadastrarPessoa' ?>" enctype="multipart/form-data">
-                <div class="form-row">
-                  <div class="form-group col-md-9">
-                    <label for="inputName">Nome</label>
-                    <input type="text" name="nome" class="form-control">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="inputTelefone">Telefone</label>
-                    <input type="text" name="telefone" class="telefone form-control">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputRua">Rua</label>
-                    <input type="text" name="rua" class="form-control">
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="inputNumero">Número</label>
-                    <input type="text" name="numero" class="form-control">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="inputBairro">Bairro</label>
-                    <input type="text" name="bairro" class="form-control">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputCidade">Cidade</label>
-                    <input type="text" name="cidade" class="form-control">
-                  </div>
-                  <div class="form-group col-md-6">
-                      <label for="validationCustom05">Comum</label>
-                        <select class="selectpicker form-control" data-live-search="true" name="id_comum" id="id_comum" required>
-                          <option value="">Selecione a ferramenta</option>
-                            <?php
-                              echo CasasController::getOptionsCasas();
-                            ?>
-                        </select>
-                    </div>
-                  
-                </div>
-            
-                
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                <button type="submit" class="btn btn-danger">Cancelar</button>
-              </form>
-            
-        </div>
-        </section>
-
-        <!-- About Section
-        <section class="page-section bg-primary text-white mb-0" id="about">
-            <div class="container"> -->
-                <!-- About Section Heading
-                <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>-->
-                <!-- Icon Divider
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>-->
-                <!-- About Section Content
-                <div class="row">
-                    <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                    <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
-                </div>-->
-                <!-- About Section Button
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
-                        <i class="fas fa-download mr-2"></i>
-                        Free Download!
-                    </a>
-                </div>
-            </div>
-        </section> -->
-       
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Registro de Temperatura</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <form style="margin-top: 30px;" method="POST" id="cadastrar" action="<?php echo $_SESSION['MEDICAO_URL_LOCATION_CONTROLLERS'].'/'.'Registro_Controller.php?funcao=cadastrarRegistro' ?>" enctype="multipart/form-data">
-                        <div class="form-row">
-                        <div class="form-group col-md-12">
-                          <label for="validationCustom05">Nome</label>
-                            <select class="selectpicker form-control" data-live-search="true" name="id_pessoa" id="id_pessoa" required>
-                              <option value="">Selecione um nome</option>
+                <form style="margin-top: 30px;" method="POST" id="cadastrar" action="<?php echo $_SESSION['MEDICAO_URL_LOCATION_CONTROLLERS'].'/'.'Pessoa_Controller.php?funcao=cadastrarPessoa' ?>" enctype="multipart/form-data">
+                    <div class="form-row">
+                      <div class="form-group col-md-9">
+                        <label for="inputName">Nome</label>
+                        <input type="text" name="nome" class="form-control">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputTelefone">Telefone</label>
+                        <input type="text" name="telefone" class="telefone form-control">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputRua">Rua</label>
+                        <input type="text" name="rua" class="form-control">
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label for="inputNumero">Número</label>
+                        <input type="text" name="numero" class="form-control">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputBairro">Bairro</label>
+                        <input type="text" name="bairro" class="form-control">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCidade">Cidade</label>
+                        <input type="text" name="cidade" class="form-control">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="validationCustom05">Comum</label>
+                            <select class="selectpicker form-control" data-show-subtext="true" data-live-search="true" name="id_casa" id="id_casa" >
+                              <option value="">Selecione uma comum</option>
                                 <?php
-                                  echo CadastrosController::getOptionsPessoas();
+                                  echo CasasController::getOptionsCasas();
                                 ?>
                             </select>
                         </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputAddress">Temperatura</label>
-                            <input type="text" class="form-control" name="temperatura" id="temperatura">
-                          </div>
-                        </div>
-                        <button style="float: right; margin-left: 8px;" type="submit" class="btn btn-primary">Cadastrar</button>
-                        <button style="float: right;" type="submit" class="btn btn-danger">Cancelar</button>
-                    </form>
-                </div>
-              </div>
+                      
+                    </div>
+                
+                   
+                    <button style="padding-right: 30px; padding-left: 30px" type="submit" class="btn btn-primary">OK</button>
+                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                  </form>
+                
             </div>
-          </div>
+        </section>
+
+        
+        
+
+        <!-- Chamo todos os modais -->
+          <?php
+            require_once($_SESSION['MEDICAO_URL_MODALS'].'cadRegistro.php');
+            require_once($_SESSION['MEDICAO_URL_MODALS'].'editRegistro.php');
+            require_once($_SESSION['MEDICAO_URL_MODALS'].'modPessoas.php');
+            require_once($_SESSION['MEDICAO_URL_MODALS'].'editPessoa.php');
+          ?>
        
+       
+        
+
+
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
             <div class="container"><small>Copyright © Your Website 2020</small></div>
@@ -195,18 +206,34 @@
        <?php 
             getJsCommonFiles();
             getJsDataTables();
+            getJqueryMask();
        ?>
     
         
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-
+       
         <script>
            $(document).ready(function() {
-               
-                $('#example').DataTable({
+                $('#tableRegistros').DataTable({
                     "language": {
                         "url": "language_datatable.json"
                     },
+                    
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'print', 'excel', 'pdf'
+                    ]
+                } );
+
+
+                $('#tabelaPessoa').DataTable({
+                    "language": {
+                        "url": "language_datatable.json"
+                    },
+                    
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'print', 'excel', 'pdf'
+                    ]
                 } );
             } );
 
@@ -224,6 +251,91 @@
                     element.mask("(99) 9999-9999?9");  
                 }  
             });
+
+
+            // Script que retorna os valores no modal de editar registro
+            $('#editRegistro').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) // Button that triggered the modal
+              var recipient = button.data('whatever') // Extract info from data-* attributes
+              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+              var recipient = button.data('whatever')
+              var recipienttemperatura = button.data('whatevertemperatura')
+              var recipientid_movimento = button.data('whateverid_movimento')
+
+              // Seleciona a opção retornada no select
+              $('#id_pessoa_edit option[value="' + recipient + '"]').prop('selected', true);
+
+              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+              var modal = $(this)
+              modal.find('#id_pessoa_edit').val(recipient)
+              modal.find('#temperatura_edit').val(recipienttemperatura)
+              modal.find('#id_movimento_edit').val(recipientid_movimento)
+            })
+
+            // Script que retorna os valores no modal de editar pessoas
+            $('#editPessoas').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) // Button that triggered the modal
+              var recipient = button.data('whatever') // Extract info from data-* attributes
+              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+              var recipient = button.data('whatever')
+              var recipientnome = button.data('whatevernome')
+              var recipienttelefone = button.data('whatevertelefone')
+              var recipientrua = button.data('whateverrua')
+              var recipientnumero = button.data('whatevernumero')
+              var recipientbairro = button.data('whateverbairro')
+              var recipientcidade = button.data('whatevercidade')
+              var recipientid_casa = button.data('whateverid_casa')
+              
+              // Seleciona a opção retornada no select
+             $('#id_casa_edit option[value="' + recipientid_casa + '"]').prop('selected', true);
+
+              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+              var modal = $(this)
+              modal.find('#id_pessoa_edit').val(recipient)
+              modal.find('#nome_edit').val(recipientnome)
+              modal.find('#telefone_edit').val(recipienttelefone)
+              modal.find('#rua_edit').val(recipientrua)
+              modal.find('#numero_edit').val(recipientnumero)
+              modal.find('#bairro_edit').val(recipientbairro)
+              modal.find('#cidade_edit').val(recipientcidade)
+              modal.find('#id_casa_edit').val(recipientid_casa)
+            })
+
+            function delPessoa(id){
+              $.ajax({
+                  method:'POST',
+                  url:'<?php echo $_SESSION['MEDICAO_URL_LOCATION_CONTROLLERS'].'/'.'Pessoa_Controller.php?' ?>',
+                  dataType: 'text',
+                  data: {id_pessoa: id, funcao: 'delPessoa'}
+              })
+              .done(function(retorno) {
+                  retorno = jQuery.parseJSON(String(retorno));
+                  if (retorno.sucesso == true){
+                      $('tr[linha-pessoa="' + id +'"]').fadeOut();
+                  }else{
+                      
+                  }
+              });
+
+          }
+
+          function delRegistro(id){
+              $.ajax({
+                  method:'POST',
+                  url:'<?php echo $_SESSION['MEDICAO_URL_LOCATION_CONTROLLERS'].'/'.'Registro_Controller.php?' ?>',
+                  dataType: 'text',
+                  data: {id_movimento: id, funcao: 'delRegistro'}
+              })
+              .done(function(retorno) {
+                  retorno = jQuery.parseJSON(String(retorno));
+                  if (retorno.sucesso == true){
+                      $('tr[linha-movimento="' + id +'"]').fadeOut();
+                  }else{
+                      
+                  }
+              });
+
+          }
             
         </script>
     </body>

@@ -9,10 +9,9 @@
                 </button>
               </div>
               <div class="modal-body">
-              <table id="tabelaPessoa" class="table table-striped table-bordered responsive nowrap" style="width:100%">
+              <table id="tabelaPessoa" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nome</th>
                             <th>Endereço</th>
                             <th>Telefone</th>
