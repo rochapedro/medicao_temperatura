@@ -110,22 +110,20 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
               <div class="container">
                 <div class="row">
                   <div class="col-12">
-                  <div class="card" style="margin-bottom: 10px;">
-                    <div class="card-body-filtros">
-                      <h5 class="card-title">Filtros</h5>
-                      <form method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
-                        <div class="form-row">
-                          <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
-                          <?php 
-                            require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
-                          ?>
-                          
-                        </div>
-                      </form>
+                    <div class="card w-90" style="margin-bottom: 10px;">
+                      <div class="card-body-filtros">
+                        <h5 class="card-title">Filtros</h5>
+                        <form method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
+                          <div class="form-row">
+                            <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
+                            <?php 
+                              require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
+                            ?>
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                  
-                  </div>
+                  </div>  
                 </div>
                 <div class="row">
                   <div class="col">
@@ -224,9 +222,6 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
             </div>
         </section>
 
-        
-        
-
         <!-- Chamo todos os modais -->
           <?php
             require_once($_SESSION['MEDICAO_URL_MODALS'].'cadRegistro.php');
@@ -235,9 +230,6 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
             require_once($_SESSION['MEDICAO_URL_MODALS'].'editPessoa.php');
           ?>
        
-       
-        
-
 
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
