@@ -13,11 +13,14 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
   if(isset($_REQUEST['filter'])){
     $data_inicial = $_GET['data_inicial'];
     $data_final = $_GET['data_final'];
+    $id_casa = $_GET['id_casa'];
   } else {
   
     $data_inicial = date("Y-m-d");
     $data_final = date("Y-m-d");
+    $id_casa = $_SESSION['id_casa'];
   }
+
 
 ?>
 
@@ -79,21 +82,13 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
 
               <form style="margin-top: 30px;" method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
                 <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="inputName">Data Inicial</label>          
-                      <input type="hidden" name="filter" value="1">      
-                      <input class="form-control" type="date"  id="data_inicial" name="data_inicial">    
-                  </div>
+                  <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
+                  <?php 
+                    require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
+                  ?>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-3">
-                    <label for="inputName">Data Final</label>                
-                      <input class="form-control" type="date"  id="data_final" name="data_final">    
-                  </div>
-                </div>
-                <button style="padding-right: 30px; padding-left: 30px" type="submit" class="btn btn-primary">OK</button>
               </form>
-              <a href="index.php"><button style="padding-right: 30px; padding-left: 30px" class="btn btn-secondary">Limpar</button></a>
+              
               <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
               <thead>
                 <tr>
@@ -107,7 +102,7 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
             </thead>
             <tbody>
               <?php
-                echo RegistrosController::showTableRegistros($data_inicial, $data_final);
+                echo RegistrosController::showTableRegistros($id_casa, $data_inicial, $data_final);
               ?>
             </tbody>
                   

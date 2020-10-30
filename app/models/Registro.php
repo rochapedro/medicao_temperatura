@@ -33,22 +33,9 @@ class Registro {
         }
     }
 
-    public function getRegistrosByCasas($id_casa, $data_inicial, $data_final){
-      
-
+    public function getRegistros($id_casa, $data_inicial, $data_final){
         try{
-            $stmt = $this->pdo->prepare("SELECT DATE_FORMAT(m.data, '%Y-%m-%d'), m.*, p.* FROM  movimento as m JOIN pessoa as p ON m.id_pessoa = p.id_pessoa WHERE DATE_FORMAT(data, '%Y-%m-%d') BETWEEN  '$data_inicial' AND '$data_final' AND m.id_casa = $id_casa AND m.ativo = 1;");
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_CLASS);
-            return $result;
-        } catch (PDOException $exc) {
-            echo get_class($this).": {$exc->getMessage()}";
-        }
-    }
-
-    public function getRegistrosTotais(){
-        try{
-            $stmt = $this->pdo->prepare("SELECT m.*, p.* FROM  movimento as m JOIN pessoa as p ON m.id_pessoa = p.id_pessoa WHERE DATE_FORMAT(data, '%Y-%m-%d') = CURDATE() AND m.ativo = 1;");
+            $stmt = $this->pdo->prepare("SELECT m.*, p.id_pessoa, p.nome, p.telefone, p.rua, p.numero, p.bairro, p.cidade FROM  movimento as m JOIN pessoa as p ON m.id_pessoa = p.id_pessoa WHERE DATE_FORMAT(data, '%Y-%m-%d') BETWEEN '$data_inicial' AND '$data_final' AND m.id_casa = $id_casa AND  m.ativo = 1;");
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_CLASS);
             return $result;

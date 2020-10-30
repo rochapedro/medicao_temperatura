@@ -28,20 +28,15 @@ if (isset($_REQUEST['funcao'])){
 
 class RegistrosController {
 
-    public static function showTableRegistros($data_inicial, $data_final){
-
-        $id_casa = $_SESSION['id_casa'];
-        
-
+    public static function showTableRegistros($id_casa, $data_inicial, $data_final){
         $data = new Registro();
-
             
-            if($_SESSION['is_admin'] == 1) {
-                $data = $data->getRegistrosTotais();
-            } else {
-                $data = $data->getRegistrosByCasas($id_casa, $data_inicial, $data_final);
-            }
+        $data = $data->getRegistros($id_casa, $data_inicial, $data_final);
 
+        echo $id_casa;
+        echo $data_inicial;
+        echo $data_final;
+        
         $return = '';
         foreach ($data as $row){
             $return .= '
@@ -49,7 +44,7 @@ class RegistrosController {
                     <td>'.$row->nome.'</td>
                     <td>'.$row->rua.'</td>
                     <td>'.$row->telefone.'</td>
-                    <td>'.$row->data.'</td>
+                    <td>'.date('d/m/Y', strtotime($row->data)).'</td>
                     <td>'.$row->temperatura.'</td>
                     <td width="5%">
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editRegistro" 
