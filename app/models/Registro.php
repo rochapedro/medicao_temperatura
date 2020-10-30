@@ -13,6 +13,7 @@ class Registro {
     public $id_movimento;
     public $id_pessoa;
     public $temperatura;
+    public $id_casa;
 
     public function lastInsertId(){
         return $this->pdo->lastInsertId();
@@ -20,12 +21,12 @@ class Registro {
 
     public function cadastrarRegistro(){
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO movimento (id_pessoa, temperatura) VALUES 
+            $stmt = $this->pdo->prepare("INSERT INTO movimento (id_pessoa, temperatura, id_casa) VALUES 
                 (:id_pessoa, :temperatura)");
             $param = array(
                 ":id_pessoa" => $this->id_pessoa,
                 ":temperatura" => $this->temperatura,
-                
+                ":id_casa" => $this->id_casa,
             );
             return $stmt->execute($param);
         } catch (PDOException $exc) {
@@ -35,7 +36,7 @@ class Registro {
 
     public function getRegistros($id_casa, $data_inicial, $data_final){
         try{
-            $stmt = $this->pdo->prepare("SELECT m.*, p.id_pessoa, p.nome, p.telefone, p.rua, p.numero, p.bairro, p.cidade FROM  movimento as m JOIN pessoa as p ON m.id_pessoa = p.id_pessoa WHERE DATE_FORMAT(data, '%Y-%m-%d') BETWEEN '$data_inicial' AND '$data_final' AND m.id_casa = $id_casa AND  m.ativo = 1;");
+            $stmt = $this->pdo->prepare("SELECT m.*, p.id_pessoa, p.nome, p.telefone, p.rua, p.numero, p.bairro, p.cidade FROM  movimento as m JOIN pessoa as p ON m.id_pessoa = p.id_pessoa WHERE DATE_FORMAT(data, '%Y-%m-%d') BETWEEN '$data_inicial' AND '$data_final' AND m.id_casa = $id_casa AND m.ativo = 1;");
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_CLASS);
             return $result;

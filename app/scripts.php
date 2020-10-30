@@ -48,7 +48,7 @@ if (!isset($_SESSION['MEDICAO_URL_PROTOCOL'])) {
 }
 
 function getAppName(){
-	echo 'Medição';
+	echo 'Registro de pessoas';
 }
 
 function getIcon(){

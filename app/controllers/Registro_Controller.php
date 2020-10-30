@@ -33,10 +33,6 @@ class RegistrosController {
             
         $data = $data->getRegistros($id_casa, $data_inicial, $data_final);
 
-        echo $id_casa;
-        echo $data_inicial;
-        echo $data_final;
-        
         $return = '';
         foreach ($data as $row){
             $return .= '
@@ -65,6 +61,7 @@ class RegistrosController {
         $classe = new Registro();
         $classe->id_pessoa = $_POST['id_pessoa'];
         $classe->temperatura = $_POST['temperatura'];
+        $classe->id_casa = $_POST['id_casa'];
         if($classe->cadastrarRegistro()){
             header('Location: ../../index.php');
             exit;

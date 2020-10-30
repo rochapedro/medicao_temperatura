@@ -23,6 +23,10 @@
                               <label for="inputAddress">Temperatura</label>
                               <input type="text" class="form-control" name="temperatura" id="temperatura">
                             </div>
+                            
+                            <!-- Input que fornece o id da casa de oração do usuário que está fazendo cadastro, dessa maneira, os registros são efetuados apenas nas casa de oração correspondente ao usuário. -->
+                            <input type="hidden" value="<?php $_SESSION['id_casa']; ?>" name="id_casa">
+
                         </div>
                         <button style="float: right; margin-left: 8px;" type="submit" class="btn btn-primary">Cadastrar</button>
                         <button style="float: right;" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

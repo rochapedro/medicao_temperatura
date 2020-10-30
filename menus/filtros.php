@@ -8,7 +8,7 @@
                 <select class="selectpicker form-control" data-show-subtext="true" data-live-search="true" name="id_casa" id="id_casa" >
                     <option value="">Selecione uma comum</option>
                     
-                      '; echo CasasController::getOptionsCasas(); echo '
+                      '; echo CasasController::getOptionsCasas(); echo'
                    
                 </select>
             </div>  
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-md-3">
                 <button style="margin-top: 32px" type="submit" class="btn btn-primary">Filtrar</button> 
-                <a href="index.php?"><button style="margin-top: 32px" class="btn btn-secondary">Limpar</button></a>   
+                <a href="index.php" class="btn btn-secondary margem">Limpar</a>   
             </div>
         ';
     } else {
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group col-md-3">
                 <button style="margin-top: 32px" type="submit" class="btn btn-primary">Filtrar</button> 
-                <a href="index.php?"><button style="margin-top: 32px" class="btn btn-secondary">Limpar</button></a>   
+                <a href="index.php" class="btn btn-secondary">Limpar</a>   
             </div>
         ';
     }

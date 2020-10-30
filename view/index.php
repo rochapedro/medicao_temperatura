@@ -13,7 +13,11 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
   if(isset($_REQUEST['filter'])){
     $data_inicial = $_GET['data_inicial'];
     $data_final = $_GET['data_final'];
-    $id_casa = $_GET['id_casa'];
+    if(isset($_REQUEST['id_casa'])){
+      $id_casa = $_GET['id_casa'];
+    } else {
+      $id_casa = $_SESSION['id_casa'];
+    }
   } else {
   
     $data_inicial = date("Y-m-d");
@@ -38,13 +42,20 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
 
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+      
+
+    
+
+        <!-- Navigation
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-            <div class="container d-flex align-items-center flex-column">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
-                
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
+                </div>
+              </div>
+                <div class="collapse navbar-collapse" >
+                    <ul class="navbar-nav">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top">Home</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#modalPessoas" href="">Pessoas</a></li>
@@ -52,7 +63,22 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top">Home</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#modalPessoas" href="">Pessoas</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../app/destroy.php">Sair</a></li>
+      </ul>
+    </div>
+  </nav>
         <!-- Masthead-->
         <header class="masthead text-dark text-left">
 
@@ -75,21 +101,45 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <div class="container">
+              <!--<div class="container">
                 <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
                 <button style="float: right; margin-right: 8px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo Registro</button>
+              </div>-->
+
+
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                  <div class="card" style="margin-bottom: 10px;">
+                    <div class="card-body-filtros">
+                      <h5 class="card-title">Filtros</h5>
+                      <form method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
+                        <div class="form-row">
+                          <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
+                          <?php 
+                            require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
+                          ?>
+                          
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
+                    <button style="float: right; margin-right:3px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo</button>
+                  </div>
+                </div>
               </div>
 
-              <form style="margin-top: 30px;" method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
-                <div class="form-row">
-                  <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
-                  <?php 
-                    require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
-                  ?>
-                </div>
-              </form>
+
+
               
-              <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+              
+              <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%; margin-top: 100px">
               <thead>
                 <tr>
                     <th>Nome</th>
@@ -210,19 +260,22 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
            $(document).ready(function() {
                 $('#tableRegistros').DataTable({
                     "language": {
-                        "url": "language_datatable.json"
+                        "url": "../language_datatable.json"
                     },
                     
                     dom: 'Bfrtip',
                     buttons: [
                         'print', 'excel', 'pdf'
-                    ]
+                    ],
+
+                    bLengthChange: true,
+                    "lengthMenu": [ 10, 25, 50, 75, 100 ],
                 } );
 
 
                 $('#tabelaPessoa').DataTable({
                     "language": {
-                        "url": "language_datatable.json"
+                        "url": "../language_datatable.json"
                     },
                     
                     dom: 'Bfrtip',
