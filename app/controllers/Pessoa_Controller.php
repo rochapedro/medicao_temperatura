@@ -36,8 +36,8 @@ class PessoasController {
         foreach ($data as $row){
             $return .= '
                 <tr linha-pessoa="'.$row->id_pessoa.'">
-                    <td>'.$row->nome.'</td>
-                    <td>'.$row->rua.' - n°'.$row->numero.' - '.$row->bairro.' - '.$row->cidade.'</td>
+                    <td>'.substr($row->nome,0,30).'</td>
+                    <td>'.substr($row->rua.' - n°'.$row->numero.' - '.$row->bairro.' - '.$row->cidade,0,50).'</td>
                     <td>'.$row->telefone.'</td>
                     <td>'.$row->casa_oracao.'</td>
                     <td width="5%">
@@ -50,6 +50,7 @@ class PessoasController {
                     data-whateverbairro="'.$row->bairro.'"
                     data-whatevercidade="'.$row->cidade.'"
                     data-whateverid_casa="'.$row->id_casa.'"
+                    data-whateverid_usuario="'.$row->usuario.'"
                     ><i class="fa fa-edit"></i></button>
                     <a href="javascript:delPessoa('.$row->id_pessoa.');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                     </td>
@@ -75,6 +76,7 @@ class PessoasController {
         $classe->bairro = $_POST['bairro'];
         $classe->cidade = $_POST['cidade'];
         $classe->id_casa = $_POST['id_casa'];
+        $classe->id_usuario = $_POST['id_usuario'];
 
         if($classe->cadastrarPessoa()){
             header('Location: ../../index.php');
@@ -102,6 +104,7 @@ class PessoasController {
         $editar->bairro = $_POST['bairro_edit'];
         $editar->cidade = $_POST['cidade_edit'];
         $editar->id_casa = $_POST['id_casa_edit'];
+        $editar->id_usuario = $_POST['id_usuario_edit'];
  
 
     if($editar->editarPessoas()){

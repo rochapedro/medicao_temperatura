@@ -23,8 +23,8 @@ class Pessoa {
 
     public function cadastrarPessoa(){
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO pessoa (nome, telefone, rua, numero, bairro, cidade, id_casa) VALUES 
-                (:nome, :telefone, :rua, :numero, :bairro, :cidade, :id_casa)");
+            $stmt = $this->pdo->prepare("INSERT INTO pessoa (nome, telefone, rua, numero, bairro, cidade, id_casa, usuario) VALUES 
+                (:nome, :telefone, :rua, :numero, :bairro, :cidade, :id_casa, :id_usuario)");
             $param = array(
                 ":nome" => $this->nome,
                 ":telefone" => $this->telefone,
@@ -33,6 +33,7 @@ class Pessoa {
                 ":bairro" => $this->bairro,
                 ":cidade" => $this->cidade,
                 ":id_casa" => $this->id_casa,
+                ":id_usuario" => $this->id_usuario,
                 
             );
             return $stmt->execute($param);
@@ -54,7 +55,7 @@ class Pessoa {
 
     public function editarPessoas() {
         try {
-            $stmt = $this->pdo->prepare("UPDATE pessoa SET nome = :nome, telefone = :telefone, rua = :rua, numero = :numero, bairro = :bairro, cidade = :cidade, id_casa = :id_casa WHERE id_pessoa = :id_pessoa");
+            $stmt = $this->pdo->prepare("UPDATE pessoa SET nome = :nome, telefone = :telefone, rua = :rua, numero = :numero, bairro = :bairro, cidade = :cidade, id_casa = :id_casa, usuario = :id_usuario WHERE id_pessoa = :id_pessoa");
             $param = array(
                 ":id_pessoa" => $this->id_pessoa,
                 ":nome" => $this->nome,
@@ -64,6 +65,7 @@ class Pessoa {
                 ":bairro" => $this->bairro,
                 ":cidade" => $this->cidade,
                 ":id_casa" => $this->id_casa,
+                ":id_usuario" => $this->id_usuario,
             );
             return $stmt->execute($param);
         } catch (PDOException $exc) {

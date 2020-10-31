@@ -47,6 +47,8 @@
                         </div>
                     
                     </div>
+                    <input type="hidden" name="id_usuario_edit" id="id_usuario_edit" class="form-control">
+
                     <button style="float: right; margin-left: 8px;" type="submit" class="btn btn-primary">Editar</button>
                     <button style="float: right;" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </form>

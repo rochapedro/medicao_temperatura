@@ -131,6 +131,7 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
                     <div class="form-row">
                       <div class="form-group col-md-9">
                         <label for="inputName">Nome</label>
+                        <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>" class="form-control">
                         <input type="text" name="nome" class="form-control">
                       </div>
                       <div class="form-group col-md-3">
@@ -312,6 +313,7 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
               var recipientbairro = button.data('whateverbairro')
               var recipientcidade = button.data('whatevercidade')
               var recipientid_casa = button.data('whateverid_casa')
+              var recipientid_usuario = button.data('whateverid_usuario')
               
               // Seleciona a opção retornada no select
              $('#id_casa_edit option[value="' + recipientid_casa + '"]').prop('selected', true);
@@ -326,6 +328,7 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
               modal.find('#bairro_edit').val(recipientbairro)
               modal.find('#cidade_edit').val(recipientcidade)
               modal.find('#id_casa_edit').val(recipientid_casa)
+              modal.find('#id_usuario_edit').val(recipientid_usuario)
             })
 
             function delPessoa(id){
