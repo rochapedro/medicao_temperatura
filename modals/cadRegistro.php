@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="cadRegistro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
@@ -25,7 +26,8 @@
                             </div>
                             
                             <!-- Input que fornece o id da casa de oração do usuário que está fazendo cadastro, dessa maneira, os registros são efetuados apenas nas casa de oração correspondente ao usuário. -->
-                            <input type="hidden" value="<?php $_SESSION['id_casa']; ?>" name="id_casa">
+                            <input type="hidden" value="<?php echo $_SESSION['id_casa']; ?>" name="id_casa">
+                            <input type="hidden" value="<?php echo $_SESSION['id_usuario']; ?>" name="id_usuario">
 
                         </div>
                         <button style="float: right; margin-left: 8px;" type="submit" class="btn btn-primary">Cadastrar</button>

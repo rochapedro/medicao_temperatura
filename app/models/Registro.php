@@ -21,12 +21,13 @@ class Registro {
 
     public function cadastrarRegistro(){
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO movimento (id_pessoa, temperatura, id_casa) VALUES 
-                (:id_pessoa, :temperatura)");
+            $stmt = $this->pdo->prepare("INSERT INTO movimento (id_pessoa, temperatura, id_casa, usuario) VALUES 
+                (:id_pessoa, :temperatura, :id_casa, :id_usuario)");
             $param = array(
                 ":id_pessoa" => $this->id_pessoa,
                 ":temperatura" => $this->temperatura,
                 ":id_casa" => $this->id_casa,
+                ":id_usuario" => $this->id_usuario,
             );
             return $stmt->execute($param);
         } catch (PDOException $exc) {

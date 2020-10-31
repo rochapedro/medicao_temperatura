@@ -37,12 +37,12 @@ class RegistrosController {
         foreach ($data as $row){
             $return .= '
                 <tr linha-movimento="'.$row->id_movimento.'">
-                    <td>'.$row->nome.'</td>
-                    <td>'.$row->rua.'</td>
+                    <td>'.substr($row->nome,0,30).'</td>
+                    <td>'.substr($row->rua.' - n°'.$row->numero.' - '.$row->bairro.' - '.$row->cidade,0,60).'</td>
                     <td>'.$row->telefone.'</td>
                     <td>'.date('d/m/Y', strtotime($row->data)).'</td>
                     <td>'.$row->temperatura.'</td>
-                    <td width="5%">
+                    <td max-width="2%">
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editRegistro" 
                     data-whatever="'.$row->id_pessoa.'" 
                     data-whatevertemperatura="'.$row->temperatura.'"
@@ -62,6 +62,8 @@ class RegistrosController {
         $classe->id_pessoa = $_POST['id_pessoa'];
         $classe->temperatura = $_POST['temperatura'];
         $classe->id_casa = $_POST['id_casa'];
+        $classe->id_usuario = $_POST['id_usuario'];
+
         if($classe->cadastrarRegistro()){
             header('Location: ../../index.php');
             exit;

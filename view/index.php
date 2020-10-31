@@ -42,134 +42,85 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
 
     </head>
     <body id="page-top">
-      
+      <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#home">Home</a></li>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#pessoas">Pessoas</a></li>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../app/destroy.php">Sair</a></li>
+          </ul>
+        </div>
+      </nav>
 
-    
 
-        <!-- Navigation
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+      <section class="page-section portfolio" id="home" style="margin-top: 4rem;">
+        <div class="container align-items-center flex-column">
+          <div class="content-wrapper">
             <div class="container">
               <div class="row">
-                <div class="col-6">
-                  <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
-                </div>
-              </div>
-                <div class="collapse navbar-collapse" >
-                    <ul class="navbar-nav">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top">Home</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#modalPessoas" href="">Pessoas</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../app/destroy.php">Sair</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">Mediçao da Temperatura Corporal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top">Home</a></li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#cadastro">Cadastro</a></li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#modalPessoas" href="">Pessoas</a></li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../app/destroy.php">Sair</a></li>
-      </ul>
-    </div>
-  </nav>
-        <!-- Masthead-->
-        <header class="masthead text-dark text-left">
-
-        <div class="wrapper">
-
-<?php
-  
-?>
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Main content -->
-  <section class="content">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Comum Congregação: <?php echo $_SESSION['casa_oracao']; ?></h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <!--<div class="container">
-                <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
-                <button style="float: right; margin-right: 8px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo Registro</button>
-              </div>-->
-
-
-              <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card w-90" style="margin-bottom: 10px;">
-                      <div class="card-body-filtros">
-                        <h5 class="card-title">Filtros</h5>
-                        <form method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
-                          <div class="form-row">
-                            <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
-                            <?php 
-                              require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
-                            ?>
-                          </div>
-                        </form>
-                      </div>
+                <div class="col-12">
+                  <div style="margin: 20px;" class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Comum Congregação: <?php echo $_SESSION['casa_oracao']; ?></h3>
                     </div>
-                  </div>  
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="card w-90" style="margin-bottom: 10px;">
+                              <div class="card-body">
+                                <h5 class="card-title">Filtros</h5>
+                                <form method="GET" id="filtro" action="index.php" enctype="multipart/form-data">
+                                  <div class="form-row">
+                                    <!-- Chamo os filros para o datatable mediante as permissões do usuário -->
+                                    <?php 
+                                      require_once ($_SESSION['MEDICAO_URL_MENUS'].'filtros.php')
+                                    ?>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>  
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
+                            <button style="float: right; margin-right:3px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo</button>
+                          </div>
+                        </div>        
+                      </div>
+                      <table id="tabelaRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%; margin-top: 100px">
+                        <thead>
+                          <tr>
+                              <th style="width: 20px;">Nome</th>
+                              <th>Endereço</th>
+                              <th>Telefone</th>
+                              <th>Data</th>
+                              <th>Temperatura</th>
+                              <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                            echo RegistrosController::showTableRegistros($id_casa, $data_inicial, $data_final);
+                          ?>
+                        </tbody>   
+                      </table>   
+                    </div>
+                  </div>      
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <a style="float: right;" class="rounded js-scroll-trigger" href="#cadastro"><button type="button" class="btn btn-secondary">Cadastrar</button></a></li>
-                    <button style="float: right; margin-right:3px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadRegistro">Novo</button>
-                  </div>
-                </div>
-              </div>
-
-
-
-              
-              
-              <table id="tableRegistros" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%; margin-top: 100px">
-              <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Telefone</th>
-                    <th>Data</th>
-                    <th>Temperatura</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-              <?php
-                echo RegistrosController::showTableRegistros($id_casa, $data_inicial, $data_final);
-              ?>
-            </tbody>
-                  
-              </table>
-            </div>
-            <!-- /.card-body -->
+              </div>    
+            </div>    
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div> <!-- container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-        </header>
-        <!-- Portfolio Section-->
+      </section>
+      
+    
         <section class="page-section portfolio" id="cadastro">
             <div class="container align-items-center flex-column">
                 <!-- Portfolio Section Heading-->
@@ -222,18 +173,53 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
             </div>
         </section>
 
+        <section class="page-section portfolio" id="pessoas">
+          <div class="container align-items-center flex-column">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Pessoas</h2>
+            <div class="content-wrapper">
+              <section class="content">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-12">
+                      <div style="margin: 20px;" class="card">
+                        <div class="card-body">
+                          <table id="tabelaPessoa" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                  <th>Nome</th>
+                                  <th>Endereço</th>
+                                  <th>Telefone</th>
+                                  <th>Comum</th>
+                                  <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                                echo PessoasController::showTablePessoas();
+                              ?>
+                            </tbody>  
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
         <!-- Chamo todos os modais -->
           <?php
             require_once($_SESSION['MEDICAO_URL_MODALS'].'cadRegistro.php');
             require_once($_SESSION['MEDICAO_URL_MODALS'].'editRegistro.php');
-            require_once($_SESSION['MEDICAO_URL_MODALS'].'modPessoas.php');
             require_once($_SESSION['MEDICAO_URL_MODALS'].'editPessoa.php');
           ?>
        
 
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © Your Website 2020</small></div>
+            <div class="container"><small></small></div>
         </div>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">
@@ -250,32 +236,33 @@ if (!isset($_SESSION['FERRAM_URL_APP'])){
        
         <script>
            $(document).ready(function() {
-                $('#tableRegistros').DataTable({
+            $('#tabelaRegistros').DataTable({
                     "language": {
-                        "url": "../language_datatable.json"
+                        "url": "../language/language_datatable.json"
                     },
-                    
+                    responsive: true,
                     dom: 'Bfrtip',
                     buttons: [
                         'print', 'excel', 'pdf'
-                    ],
-
-                    bLengthChange: true,
-                    "lengthMenu": [ 10, 25, 50, 75, 100 ],
+                    ]
                 } );
 
 
                 $('#tabelaPessoa').DataTable({
                     "language": {
-                        "url": "../language_datatable.json"
+                        "url": "../language/language_datatable.json"
                     },
-                    
+                    responsive: true,
                     dom: 'Bfrtip',
                     buttons: [
                         'print', 'excel', 'pdf'
                     ]
                 } );
             } );
+
+            $(document).ready(function() {
+        $('#example').DataTable();
+    } );
 
             jQuery("input.telefone")
             .mask("(99) 9999-9999?9")
